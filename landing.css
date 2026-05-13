@@ -155,6 +155,11 @@ main, .nav, footer { position: relative; z-index: 1; }
   background: #000; border-radius: 16px;
   z-index: 2;
 }
+.phone .screen iframe {
+  width: 100%; height: 100%;
+  border: none; display: block;
+  background: #0a0807;
+}
 .phone .screen {
   width: 100%; height: 100%;
   border-radius: 36px;
@@ -259,6 +264,17 @@ main, .nav, footer { position: relative; z-index: 1; }
   color: var(--ink);
 }
 .features p { color: var(--ink-soft); font-size: 14px; line-height: 2; }
+.feature-illust {
+  margin: 8px auto 16px;
+  width: 100%; max-width: 200px;
+  aspect-ratio: 200 / 140;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(212,175,94,0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.feature-illust svg { width: 100%; height: 100%; display: block; }
 
 /* Quote band */
 .quote {

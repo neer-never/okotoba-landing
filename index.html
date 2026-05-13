@@ -54,26 +54,13 @@
         <div class="phone">
           <div class="notch"></div>
           <div class="screen">
-            <!-- 革手帳の表紙ミニチュア -->
-            <div class="cover">
-              <div class="cover-title">御<br>言<br>葉<br>台<br>帳</div>
-            </div>
-            <!-- 立てかけた筆 -->
-            <svg class="brush" viewBox="0 0 80 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <defs>
-                <linearGradient id="b1" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0" stop-color="#3a2410"/><stop offset="0.55" stop-color="#a87245"/><stop offset="1" stop-color="#2a1608"/>
-                </linearGradient>
-                <linearGradient id="b2" x1="0.5" y1="0" x2="0.5" y2="1">
-                  <stop offset="0" stop-color="#d8c08a"/><stop offset="0.65" stop-color="#3a2410"/><stop offset="1" stop-color="#000"/>
-                </linearGradient>
-                <radialGradient id="b3"><stop offset="0" stop-color="#f0d68a"/><stop offset="1" stop-color="#5a3e10"/></radialGradient>
-              </defs>
-              <rect x="30" y="20" width="20" height="14" rx="2" fill="#1a1a1a"/>
-              <rect x="32" y="34" width="16" height="140" fill="url(#b1)"/>
-              <rect x="29" y="172" width="22" height="10" rx="1" fill="url(#b3)"/>
-              <path d="M28 184 Q40 192 52 184 L48 200 Q44 220 40 252 Q36 220 32 200 Z" fill="url(#b2)"/>
-            </svg>
+            <!-- 実アプリのライブミラー（自動同期） -->
+            <iframe
+              src="app/index.html#preview"
+              title="アプリプレビュー"
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin"
+              scrolling="no"></iframe>
           </div>
         </div>
       </div>
@@ -85,21 +72,130 @@
       <div class="feature-grid">
         <article>
           <div class="num">壱</div>
+          <div class="feature-illust" aria-hidden="true">
+            <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="paper1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf5e3"/><stop offset="1" stop-color="#e8dcb6"/></linearGradient>
+                <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4dca0"/><stop offset="1" stop-color="#8c6a2c"/></linearGradient>
+              </defs>
+              <!-- 紙 -->
+              <rect x="42" y="14" width="116" height="112" rx="3" fill="url(#paper1)" stroke="#c8b88a" stroke-width="0.6"/>
+              <!-- 罫線 -->
+              <line x1="55" y1="40" x2="145" y2="40" stroke="#bfae7a" stroke-width="0.5" opacity="0.5"/>
+              <line x1="55" y1="58" x2="145" y2="58" stroke="#bfae7a" stroke-width="0.5" opacity="0.5"/>
+              <line x1="55" y1="76" x2="145" y2="76" stroke="#bfae7a" stroke-width="0.5" opacity="0.5"/>
+              <line x1="55" y1="94" x2="145" y2="94" stroke="#bfae7a" stroke-width="0.5" opacity="0.5"/>
+              <!-- 書き終えた文字（縦） -->
+              <text x="138" y="32" font-family="serif" font-size="12" fill="#3a2a1a">心</text>
+              <text x="138" y="48" font-family="serif" font-size="12" fill="#3a2a1a">に</text>
+              <text x="138" y="64" font-family="serif" font-size="12" fill="#3a2a1a">残</text>
+              <text x="138" y="80" font-family="serif" font-size="12" fill="#3a2a1a">る</text>
+              <!-- 筆 -->
+              <g transform="rotate(35 95 100)">
+                <rect x="89" y="40" width="6" height="60" fill="#5a341a"/>
+                <rect x="88" y="100" width="8" height="4" fill="url(#g1)"/>
+                <path d="M89 104 L95 104 L93 130 Q92 134 90 130 Z" fill="#1a0e05"/>
+              </g>
+              <!-- 墨ポチ -->
+              <circle cx="62" cy="116" r="2" fill="#1a0e05" opacity="0.8"/>
+              <circle cx="68" cy="119" r="1" fill="#1a0e05" opacity="0.6"/>
+            </svg>
+          </div>
           <h3>記す</h3>
           <p>テキスト・音声・写真。<br>言葉の佇まいごと残せます。</p>
         </article>
+
         <article>
           <div class="num">弐</div>
+          <div class="feature-illust" aria-hidden="true">
+            <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4dca0"/><stop offset="1" stop-color="#8c6a2c"/></linearGradient>
+              </defs>
+              <!-- 3つの印（自分・他人・メディア） -->
+              <g transform="translate(38 30)">
+                <rect width="38" height="48" rx="4" fill="none" stroke="url(#g2)" stroke-width="1.5"/>
+                <text x="19" y="32" text-anchor="middle" font-family="serif" font-size="16" font-weight="700" fill="#d4af5e">自</text>
+              </g>
+              <g transform="translate(81 30)">
+                <rect width="38" height="48" rx="4" fill="none" stroke="url(#g2)" stroke-width="1.5"/>
+                <text x="19" y="32" text-anchor="middle" font-family="serif" font-size="16" font-weight="700" fill="#d4af5e">他</text>
+              </g>
+              <g transform="translate(124 30)">
+                <rect width="38" height="48" rx="4" fill="none" stroke="url(#g2)" stroke-width="1.5"/>
+                <text x="19" y="32" text-anchor="middle" font-family="serif" font-size="16" font-weight="700" fill="#d4af5e">媒</text>
+              </g>
+              <!-- 下の和線 -->
+              <line x1="40" y1="100" x2="160" y2="100" stroke="#a89c84" stroke-width="0.5" opacity="0.5"/>
+              <text x="100" y="118" text-anchor="middle" font-family="serif" font-size="9" letter-spacing="3" fill="#a89c84">分けて、整える</text>
+            </svg>
+          </div>
           <h3>分ける</h3>
           <p>自分・他人・メディア。<br>誰の言葉かを丁寧に。</p>
         </article>
+
         <article>
           <div class="num">参</div>
+          <div class="feature-illust" aria-hidden="true">
+            <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="paper3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf5e3"/><stop offset="1" stop-color="#e8dcb6"/></linearGradient>
+              </defs>
+              <!-- 後ろのページ -->
+              <rect x="60" y="22" width="100" height="100" rx="3" fill="url(#paper3)" stroke="#c8b88a" stroke-width="0.5" opacity="0.7"/>
+              <!-- めくられているページ（中央） -->
+              <path d="M60 22 L160 22 L160 122 L100 122 Q70 100 60 50 Z" fill="url(#paper3)" stroke="#c8b88a" stroke-width="0.6"/>
+              <!-- ページの折れ目 -->
+              <path d="M60 22 Q70 70 100 122 L88 122 Q60 80 60 22 Z" fill="#d8c89c" opacity="0.6"/>
+              <!-- 矢印（右→左） -->
+              <path d="M170 70 L130 70" stroke="#d4af5e" stroke-width="2" fill="none"/>
+              <path d="M138 64 L130 70 L138 76" stroke="#d4af5e" stroke-width="2" fill="none"/>
+              <!-- 文字 -->
+              <text x="115" y="60" font-family="serif" font-size="10" fill="#3a2a1a">急がば回れ</text>
+            </svg>
+          </div>
           <h3>めくる</h3>
           <p>御朱印帳のように、右から左へ。<br>紙を捲って言葉を辿ります。</p>
         </article>
+
         <article>
           <div class="num">四</div>
+          <div class="feature-illust" aria-hidden="true">
+            <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="aiGlow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#f4dca0" stop-opacity="0.6"/>
+                  <stop offset="1" stop-color="#f4dca0" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4dca0"/><stop offset="1" stop-color="#8c6a2c"/></linearGradient>
+              </defs>
+              <!-- 中心の光 -->
+              <circle cx="100" cy="70" r="40" fill="url(#aiGlow)"/>
+              <!-- 言葉の円（中央） -->
+              <circle cx="100" cy="70" r="22" fill="none" stroke="url(#g4)" stroke-width="1.5"/>
+              <text x="100" y="76" text-anchor="middle" font-family="serif" font-size="16" font-weight="700" fill="#d4af5e">語</text>
+              <!-- 周囲の関連語（4つの小さい円） -->
+              <g fill="none" stroke="#d4af5e" stroke-width="0.8" opacity="0.7">
+                <circle cx="40" cy="40" r="14"/>
+                <circle cx="160" cy="40" r="14"/>
+                <circle cx="40" cy="100" r="14"/>
+                <circle cx="160" cy="100" r="14"/>
+              </g>
+              <g font-family="serif" font-size="10" fill="#a89c84">
+                <text x="40" y="44" text-anchor="middle">類</text>
+                <text x="160" y="44" text-anchor="middle">縁</text>
+                <text x="40" y="104" text-anchor="middle">義</text>
+                <text x="160" y="104" text-anchor="middle">音</text>
+              </g>
+              <!-- 結ぶ線 -->
+              <g stroke="#d4af5e" stroke-width="0.4" opacity="0.4" stroke-dasharray="2 2">
+                <line x1="54" y1="48" x2="82" y2="62"/>
+                <line x1="146" y1="48" x2="118" y2="62"/>
+                <line x1="54" y1="92" x2="82" y2="78"/>
+                <line x1="146" y1="92" x2="118" y2="78"/>
+              </g>
+            </svg>
+          </div>
           <h3>読み解く</h3>
           <p>AIが言葉の背景と<br>似た名言を日本語で添えます。</p>
         </article>

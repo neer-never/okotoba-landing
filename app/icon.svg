@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- 和紙の繊維 -->
+    <filter id="washi" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="5" result="t"/>
+      <feColorMatrix in="t" values="0 0 0 0 0
+                                    0 0 0 0 0
+                                    0 0 0 0 0
+                                    0 0 0 0.06 0" result="fibers"/>
+      <feComposite in="fibers" in2="SourceGraphic" operator="over"/>
+    </filter>
+
+    <!-- 墨の自然なにじみ：エッジを少しだけゆらして、薄く滲ませる -->
+    <filter id="ink" x="-10%" y="-10%" width="120%" height="120%">
+      <!-- 墨の輪郭をわずかに有機的に -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="13" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="3" result="warped"/>
+      <!-- 外側に薄く滲み（にじみ） -->
+      <feGaussianBlur in="warped" stdDeviation="2.2" result="bleed"/>
+      <feColorMatrix in="bleed" values="1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 0.55 0" result="bleedDim"/>
+      <feMerge>
+        <feMergeNode in="bleedDim"/>
+        <feMergeNode in="warped"/>
+      </feMerge>
+    </filter>
+
+    <!-- ほんのりかすれ：穂先のドライな感触 -->
+    <filter id="dry" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.6" numOctaves="2" seed="29" result="streak"/>
+      <feColorMatrix in="streak" values="0 0 0 0 1
+                                         0 0 0 0 1
+                                         0 0 0 0 1
+                                         0 0 0 1.4 -1.0" result="mask"/>
+      <feComposite in="SourceGraphic" in2="mask" operator="out"/>
+    </filter>
+  </defs>
+
+  <!-- 和紙背景 -->
+  <rect width="512" height="512" fill="#fbfaf3"/>
+  <rect width="512" height="512" fill="#fbfaf3" filter="url(#washi)"/>
+  <rect x="2" y="2" width="508" height="508" fill="none" stroke="#ece5d2" stroke-width="2"/>
+
+  <!-- 「御」を毛筆体で。Weibei→Kaiti の順でフォールバック -->
+  <g filter="url(#ink)">
+    <g filter="url(#dry)">
+      <text x="256" y="380"
+            text-anchor="middle"
+            font-family="'Weibei TC','Weibei SC','Kaiti TC','Kaiti SC','STKaiti','Hannotate SC','Hiragino Mincho ProN',serif"
+            font-weight="900"
+            font-size="380"
+            fill="#1a1208">御</text>
+    </g>
+  </g>
+</svg>
