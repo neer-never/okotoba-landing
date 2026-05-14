@@ -135,6 +135,34 @@ async function handleSave(ev) {
   state.pageIndex = 0;
   renderBook();
   showView("view-home");
+
+  // クラウド同期（サインイン済みなら）— バックグラウンドで実行、失敗しても無視
+  syncPushIfSignedIn();
+}
+
+/* ===== クラウド同期 ===== */
+async function syncPushIfSignedIn() {
+  if (!isIOS) return;
+  try {
+    await nativeCall({ action: "syncPush", entries: state.entries });
+  } catch {}
+}
+
+async function syncPullIfSignedIn() {
+  if (!isIOS) return;
+  try {
+    const r = await nativeCall({ action: "syncPull" });
+    if (!r.ok || !Array.isArray(r.entries) || r.entries.length === 0) return;
+    // クラウドの方が信頼度が高い → 全置換（ID重複は最新で上書き）
+    const map = new Map();
+    state.entries.forEach(e => map.set(e.id, e));
+    r.entries.forEach(e => map.set(e.id, e));
+    state.entries = Array.from(map.values()).sort((a, b) =>
+      new Date(a.createdAt) - new Date(b.createdAt)
+    );
+    save();
+    renderBook();
+  } catch {}
 }
 
 /* ===== 写真添付 ===== */
@@ -267,10 +295,19 @@ $("#btn-apple")?.addEventListener("click", async () => {
   if (r.ok) {
     alert("ようこそ" + (r.name ? "、" + r.name : "") + "！");
     showView("view-home");
+    // 初回サインイン後にクラウドから取り込み
+    await syncPullIfSignedIn();
+    // ローカルに既にある言葉もサーバへ送る
+    await syncPushIfSignedIn();
   } else {
     alert("サインインがキャンセルされました。");
   }
 });
+
+// 起動時：iOS かつ何らかのキャッシュトークンを持っていれば pull を試みる
+if (isIOS) {
+  setTimeout(() => syncPullIfSignedIn(), 1500);
+}
 
 // 設定: 通知トグル
 async function refreshNotifyToggle() {
