@@ -174,7 +174,9 @@ button { font-family: inherit; cursor: pointer; }
 .icon-btn, .text-btn {
   background: transparent; border: none; color: var(--ink);
   font-size: 18px; padding: 8px 10px; border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
 }
+.icon-btn svg { display: block; }
 .text-btn { font-size: 15px; color: var(--accent); letter-spacing: 0.1em; }
 .text-btn.small { font-size: 13px; }
 
@@ -268,28 +270,41 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .page-inner {
-  padding: 36px 28px 28px 48px;
+  padding: 64px 56px;
   flex: 1;
-  display: flex; flex-direction: column;
-  writing-mode: vertical-rl;       /* 縦書き */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
   text-orientation: upright;
   overflow: hidden;
+  position: relative;
 }
 .page-text {
-  /* 手書き風：万年筆系 + 筆フォント — 墨の濃淡が出る Yuji Mai */
   font-family: "Yuji Mai", "Klee One", "Shippori Mincho", "Hiragino Mincho ProN", serif;
-  font-size: 22px; line-height: 2; letter-spacing: 0.08em;
-  white-space: pre-wrap; flex: 1; max-height: 100%;
+  font-size: 24px; line-height: 2; letter-spacing: 0.08em;
+  white-space: pre-wrap;
   text-orientation: mixed;
   color: #1a1410;
-  /* 墨にじみ風 */
   text-shadow: 0 0 0.6px rgba(0,0,0,0.4);
+  height: 100%;
+  text-align: justify;     /* 行内を均等割で配置、孤立文字を防ぐ */
+  word-break: keep-all;    /* CJKは行ごと文節切り */
+  line-break: strict;
+  max-width: 65%;          /* 列数を絞り、3〜4列に均等配置されやすくする */
 }
+/* 日付：左端の縦書き。pageエリア基準で配置 */
 .page-meta {
-  margin-top: 12px;
-  font-size: 11px; color: var(--ink-soft); letter-spacing: 0.2em;
+  position: absolute;
+  left: 28px; top: 36px;
+  font-size: 10px;
+  color: var(--ink-soft);
+  letter-spacing: 0.2em;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 .page-stamp {
+  display: none;          /* 表示しない（裏側にあって汚く見えるため） */
   position: absolute; right: 18px; bottom: 18px;
   width: 52px; height: 52px; border-radius: 6px;
   border: 2px solid var(--accent); color: var(--accent);
@@ -586,14 +601,31 @@ button { font-family: inherit; cursor: pointer; }
 }
 .account-foot a { color: #d4af5e; font-weight: 600; }
 
-/* 入力画面 */
+/* === 入力画面 === */
+#view-input {
+  background:
+    radial-gradient(120% 60% at 50% 0%, #2a2018 0%, #1a1410 60%, #100a08 100%);
+  color: #ece5d2;
+}
+#view-input .app-header {
+  background: rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(212,175,94,0.18);
+}
+#view-input .icon-btn { color: #d4af5e; }
+#view-input .text-btn {
+  color: #f4dca0; font-weight: 600;
+  background: rgba(212,175,94,0.15);
+  border: 1px solid rgba(212,175,94,0.4);
+  padding: 6px 14px; border-radius: 999px;
+}
+#view-input .brand.small { color: #d4af5e; }
 .form {
-  padding: 6px 20px 40px;
+  padding: 18px 20px 40px;
   overflow-y: auto; flex: 1;
   display: flex; flex-direction: column; gap: 18px;
 }
 .field { display: flex; flex-direction: column; gap: 8px; border: none; padding: 0; margin: 0; }
-.label-text { font-size: 12px; letter-spacing: 0.2em; color: var(--ink-soft); }
+.label-text { font-size: 12px; letter-spacing: 0.2em; color: #c8b27a; }
 textarea, input[type="text"] {
   font-family: var(--serif); color: var(--ink);
   background: #fbf6e8; border: 1px solid var(--paper-edge);
@@ -628,6 +660,7 @@ textarea:focus, input[type="text"]:focus { outline: 2px solid var(--accent); out
 }
 
 .photo-preview { position: relative; display: flex; gap: 12px; align-items: flex-start; }
+.photo-preview[hidden] { display: none; }
 .photo-preview img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; border: 1px solid var(--paper-edge); }
 
 .ai-section {

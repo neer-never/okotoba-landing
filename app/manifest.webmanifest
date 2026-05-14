@@ -1,28 +1,16 @@
 {
   "name": "御言葉台帳",
   "short_name": "御言葉",
-  "description": "心に残った言葉を御朱印帳のように記し、振り返るアプリ。毎朝そっと今日の言葉が届きます。",
-  "id": "/okotoba-landing/app/",
-  "start_url": "/okotoba-landing/app/index.html",
-  "scope": "/okotoba-landing/app/",
+  "description": "心に残った言葉を記し、振り返る御朱印帳のようなアプリ。",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0a0807",
-  "theme_color": "#0a0807",
+  "background_color": "#efe8d8",
+  "theme_color": "#8b2f2f",
   "lang": "ja",
-  "categories": ["lifestyle", "productivity"],
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
-  ],
-  "screenshots": [
-    {
-      "src": "../ogp.png",
-      "sizes": "1200x630",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "御言葉台帳"
-    }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }
