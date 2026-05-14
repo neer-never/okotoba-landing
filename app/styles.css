@@ -387,6 +387,40 @@ button { font-family: inherit; cursor: pointer; }
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
+/* === 設定画面 === */
+#view-settings {
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(74,56,38,0.35) 0%, transparent 60%),
+    #0a0807;
+  overflow-y: auto;
+}
+.settings { padding: 8px 20px calc(env(safe-area-inset-bottom, 0px) + 60px); max-width: 480px; margin: 0 auto; width: 100%; }
+.settings-group { margin-bottom: 28px; }
+.settings-group h3 {
+  font-size: 11px; letter-spacing: 0.3em; color: #d4af5e;
+  margin: 0 0 10px 4px; font-weight: 600;
+}
+.settings-row {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 14px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(212,175,94,0.15);
+  border-bottom: none;
+  color: #ece5d2; font-family: var(--serif); font-size: 14px;
+  letter-spacing: 0.05em; cursor: pointer;
+  text-align: left; text-decoration: none;
+}
+.settings-row:first-of-type { border-radius: 10px 10px 0 0; }
+.settings-row:last-of-type { border-radius: 0 0 10px 10px; border-bottom: 1px solid rgba(212,175,94,0.15); }
+.settings-row:only-of-type { border-radius: 10px; border-bottom: 1px solid rgba(212,175,94,0.15); }
+.settings-row:active { background: rgba(212,175,94,0.08); }
+.settings-row .chev { color: #d4af5e; font-size: 16px; }
+.settings-row.danger { color: #d96a6a; }
+.settings-version {
+  text-align: center; color: #6b6259; font-size: 11px;
+  letter-spacing: 0.2em; margin-top: 32px;
+}
+
 /* === アカウント登録画面 === */
 #view-account {
   background:

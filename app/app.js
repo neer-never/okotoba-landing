@@ -257,6 +257,26 @@ $("#btn-new").addEventListener("click", openInput);
 $("#btn-back").addEventListener("click", () => showView("view-home"));
 $("#btn-account")?.addEventListener("click", () => showView("view-account"));
 $("#btn-account-back")?.addEventListener("click", () => showView("view-home"));
+$("#btn-settings")?.addEventListener("click", () => showView("view-settings"));
+$("#btn-settings-back")?.addEventListener("click", () => showView("view-home"));
+$("#settings-account")?.addEventListener("click", () => showView("view-account"));
+$("#settings-export")?.addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(state.entries, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `okotoba-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+$("#settings-clear")?.addEventListener("click", () => {
+  if (!confirm("すべての言葉を削除します。よろしいですか？")) return;
+  if (!confirm("本当に削除します。元に戻せません。")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state.entries = []; state.pageIndex = 0;
+  renderBook();
+  alert("削除しました。");
+  showView("view-home");
+});
 $("#form-account")?.addEventListener("submit", (e) => {
   e.preventDefault();
   alert("登録機能は近日対応予定です。");
