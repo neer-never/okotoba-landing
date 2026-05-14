@@ -185,47 +185,12 @@ $("#btn-mic")?.addEventListener("click", () => {
   try { recognition.start(); } catch {}
 });
 
-/* ===== Anthropic API（任意） =====
-   ユーザーがブラウザコンソールで以下を一度実行すれば有効化:
-   localStorage.setItem('mikotoba.anthropicKey', 'sk-ant-...');
-   ※ MVPゆえクライアント直叩き。実運用ではサーバー経由推奨。
+/* ===== AI解説（無効化中） =====
+   将来復活させる場合: worker/ をデプロイし、URLを下に書いて return を有効化。
 */
-async function analyzeWithAI(entry) {
-  const key = localStorage.getItem("mikotoba.anthropicKey");
-  if (!key) return null;
-  const prompt = `あなたは言葉の味わいを丁寧に解説する案内人です。
-以下の言葉について、日本語で次の2点を返してください。英語の言葉でも必ず日本語で書いてください。
-
-1. context: その言葉の背景・意味合い・文脈の解説（120字程度、やさしい言葉で）
-2. similar: 似た響き・意図を持つ言葉や名言を3つ（短く、出典があれば併記）
-
-言葉:「${entry.text}」
-カテゴリ:${entry.category}
-出典:${entry.source || "（なし）"}
-
-返答は次のJSON形式のみ:
-{"context":"...","similar":["...","...","..."]}`;
-
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-api-key": key,
-      "anthropic-version": "2023-06-01",
-      "anthropic-dangerous-direct-browser-access": "true",
-    },
-    body: JSON.stringify({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 600,
-      messages: [{ role: "user", content: prompt }],
-    }),
-  });
-  if (!res.ok) throw new Error("API " + res.status);
-  const data = await res.json();
-  const text = data?.content?.[0]?.text || "";
-  const m = text.match(/\{[\s\S]*\}/);
-  if (!m) return null;
-  return JSON.parse(m[0]);
+// const OKOTOBA_AI_URL = "https://okotoba-ai.okotoba.workers.dev";
+async function analyzeWithAI(_entry) {
+  return null; // AI機能オフ
 }
 
 /* ===== ユーティリティ ===== */
@@ -281,6 +246,56 @@ $("#form-account")?.addEventListener("submit", (e) => {
   e.preventDefault();
   alert("登録機能は近日対応予定です。");
 });
+
+/* ===== JS ↔ Swift ブリッジ ===== */
+const isIOS = !!window.webkit?.messageHandlers?.okotoba;
+function nativeCall(payload) {
+  return new Promise((resolve) => {
+    if (!isIOS) return resolve({ ok: false, error: "not_ios" });
+    window.__okotobaCallback = (res) => resolve(res);
+    window.webkit.messageHandlers.okotoba.postMessage(payload);
+  });
+}
+
+// Apple Sign In ボタン
+$("#btn-apple")?.addEventListener("click", async () => {
+  if (!isIOS) {
+    alert("Sign in with Apple は iPhone アプリでご利用いただけます。");
+    return;
+  }
+  const r = await nativeCall({ action: "signInWithApple" });
+  if (r.ok) {
+    alert("ようこそ" + (r.name ? "、" + r.name : "") + "！");
+    showView("view-home");
+  } else {
+    alert("サインインがキャンセルされました。");
+  }
+});
+
+// 設定: 通知トグル
+async function refreshNotifyToggle() {
+  const t = $("#settings-notify-toggle");
+  if (!t) return;
+  const on = localStorage.getItem("okotoba.notify") === "1";
+  t.checked = on;
+}
+$("#settings-notify-toggle")?.addEventListener("change", async (e) => {
+  const on = e.target.checked;
+  if (on) {
+    const r = await nativeCall({ action: "scheduleNotification", hour: 8, minute: 0 });
+    if (r.ok) {
+      localStorage.setItem("okotoba.notify", "1");
+      alert("毎朝8:00に今日の言葉をお届けします。");
+    } else {
+      e.target.checked = false;
+      alert(isIOS ? "通知が許可されていません。設定アプリからオンにしてください。" : "通知は iPhone アプリでご利用いただけます。");
+    }
+  } else {
+    await nativeCall({ action: "cancelNotification" });
+    localStorage.setItem("okotoba.notify", "0");
+  }
+});
+refreshNotifyToggle();
 $("#btn-save").addEventListener("click", handleSave);
 $("#form-entry").addEventListener("submit", handleSave);
 // 表紙：タップで開いて「今日の名言」を表示
