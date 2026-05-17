@@ -17,57 +17,72 @@
 
   <link rel="icon" href="favicon.png" />
   <link rel="apple-touch-icon" href="favicon.png" />
-  <link rel="stylesheet" href="landing.css" />
+  <link rel="stylesheet" href="landing.css?v=13" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Shippori+Mincho:wght@600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
   <header class="nav">
-    <a class="logo" href="#">御<span>言葉台帳</span></a>
-    <a class="nav-cta" href="#download">入手</a>
+    <a class="logo" href="#"><span class="logo-mark">御</span><span>言葉台帳</span></a>
+    <a class="nav-cta" href="#download-section">入手</a>
   </header>
 
-  <main>
+  <main class="book-flow">
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero page-sheet page-cover" id="top">
+      <div class="page-meta" aria-hidden="true">一頁</div>
       <div class="hero-text">
-        <p class="eyebrow">— iPhone App —</p>
+        <p class="eyebrow">iPhone App / Kotoba Archive</p>
         <h1>心に残る言葉を、<br>もう一度。</h1>
         <p class="lede">
-          ふと耳にしたひと言、本に書かれたあの一行。<br>
-          御朱印帳のように、大切な言葉を記し、<br>めくり、味わう。
+          AIの言葉が溢れる時代、<br>
+          誰かの一言、誰かを笑顔にしたあなたのことばを<br>
+          記憶に留めておきたい。
         </p>
         <div class="cta-row">
-          <a class="btn-app-store" href="#download" id="download">
+          <a class="btn-app-store" href="#download-section">
             <span class="btn-icon"></span>
             <span>
-              <small>Download on the</small>
-              <strong>App Store</strong>
+              <small>御言葉手帳</small>
+              <strong>OKOTOBA</strong>
             </span>
           </a>
         </div>
         <p class="muted small badge">近日公開 / iPhone・iOS 16以上</p>
+        <nav class="page-index" aria-label="ページ索引">
+          <a href="#features"><span>四つの所作</span><b>P1</b></a>
+          <a href="#download-section"><span>保存と通知</span><b>P3</b></a>
+        </nav>
       </div>
 
       <div class="hero-visual">
+        <div class="vertical-seal" aria-hidden="true">言葉を<br>たずさえる</div>
+        <div class="page-stack" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <div class="phone">
           <div class="notch"></div>
           <div class="screen">
-            <!-- 実アプリのライブミラー（自動同期） -->
-            <iframe
-              src="app/index.html#preview"
-              title="アプリプレビュー"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin"
-              scrolling="no"></iframe>
+            <div class="lp-app-preview" aria-label="アプリプレビュー">
+              <div class="preview-paper">
+                <span>2026 五月</span>
+                <p>人生が<br>もう一度<br>あるなら。</p>
+                <i>出典 / 夏目漱石</i>
+              </div>
+              <div class="preview-stamp">御</div>
+              <p class="preview-note">右から左へ<br>言葉をめくる</p>
+            </div>
           </div>
         </div>
       </div>
+      <a class="page-corner" href="#features" aria-label="次の頁へ">次頁</a>
     </section>
 
     <!-- Features -->
-    <section class="features" id="features">
+    <section class="features page-sheet" id="features">
       <h2>四つの所作</h2>
       <div class="feature-grid">
         <article>
@@ -187,22 +202,25 @@
           <p>毎朝8時、そっと今日の<br>偉人の言葉が届きます。</p>
         </article>
       </div>
-    </section>
-
-    <!-- Quote -->
-    <section class="quote">
-      <p>「言葉は、心の足跡である。」</p>
+      <a class="page-corner" href="#download-section" aria-label="次の頁へ">次頁</a>
     </section>
 
     <!-- Download -->
-    <section class="download-band" id="download-section">
-      <h2>毎日、一つの言葉を。</h2>
-      <p>表紙を開けば、今日のあなたへの言葉が現れる。</p>
+    <section class="download-band page-sheet" id="download-section">
+      <div class="page-meta" aria-hidden="true">三頁</div>
+      <div class="section-label"><span>P 3</span><span>Keep safely</span><b>3/3</b></div>
+      <h2>大切な言葉を、<br>静かに保管。</h2>
+      <p>写真・音声・テキストで残し、毎朝8時に今日の言葉を受け取れます。</p>
+      <ul class="trust-list">
+        <li><span>保存</span><b>言葉の出典や種類を整理</b></li>
+        <li><span>通知</span><b>毎朝、今日の言葉をそっと表示</b></li>
+        <li><span>公開</span><b>iPhoneアプリとして近日公開予定</b></li>
+      </ul>
       <a class="btn-app-store large" href="#">
         <span class="btn-icon"></span>
         <span>
-          <small>Download on the</small>
-          <strong>App Store</strong>
+          <small>御言葉手帳</small>
+          <strong>OKOTOBA</strong>
         </span>
       </a>
       <p class="muted small">近日公開 / iPhone・iOS 16以上</p>
@@ -210,12 +228,13 @@
   </main>
 
   <footer>
-    <div>© 2026 御言葉台帳</div>
+    <div>© 2026 Okotoba</div>
     <div class="footer-links">
       <a href="privacy.html">プライバシー</a>
       <a href="terms.html">利用規約</a>
       <a href="mailto:okotobasupport@gmail.com">お問い合わせ</a>
     </div>
   </footer>
+  <script src="landing.js?v=5" defer></script>
 </body>
 </html>

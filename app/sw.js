@@ -1,11 +1,15 @@
 // 御言葉台帳 — Service Worker（オフライン対応）
-const CACHE = "okotoba-v1";
+const CACHE = "okotoba-v3";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
-  "./manifest.webmanifest"
+  "./analytics.js",
+  "./seed.js",
+  "./manifest.webmanifest",
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 self.addEventListener("install", (e) => {

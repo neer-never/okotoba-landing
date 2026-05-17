@@ -56,7 +56,8 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: 0.3em;
   font-weight: 500;
 }
-.brand.small { font-size: 16px; letter-spacing: 0.2em; }
+.brand.small { font-size: 16px; letter-spacing: 0.2em; display: inline-flex; align-items: center; gap: 10px; }
+.brand .brand-mark.sm { transform: rotate(-3deg); }
 
 /* トップ：ヘッダー */
 .home-header { padding-bottom: 0; }
@@ -287,11 +288,35 @@ button { font-family: inherit; cursor: pointer; }
   text-orientation: mixed;
   color: #1a1410;
   text-shadow: 0 0 0.6px rgba(0,0,0,0.4);
-  height: 100%;
-  text-align: justify;     /* 行内を均等割で配置、孤立文字を防ぐ */
+  max-height: 100%;
+  text-align: start;       /* 縦書きでは justify が孤立列を生むため start に変更 */
   word-break: keep-all;    /* CJKは行ごと文節切り */
   line-break: strict;
-  max-width: 65%;          /* 列数を絞り、3〜4列に均等配置されやすくする */
+  max-width: 100%;         /* 列数の上限を取り払い、長文でも全幅を使えるように */
+  transition: font-size 200ms ease;
+}
+
+/* ページ右下に「御」の落款風ロゴ */
+.page-logo {
+  position: absolute;
+  right: 18px; bottom: 18px;
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  font-family: "Yuji Boku", "Yuji Syuku", "Shippori Mincho", serif;
+  font-size: 22px; line-height: 1;
+  color: #fff;
+  background: linear-gradient(135deg, #a52828 0%, #8b2f2f 60%, #6e1f1f 100%);
+  border: 1.5px solid rgba(140, 30, 30, 0.4);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 0 0 1px rgba(255,255,255,0.5),
+    0 2px 4px rgba(0,0,0,0.15);
+  transform: rotate(-3deg);
+  writing-mode: horizontal-tb;
+  pointer-events: none;
+  opacity: 0.92;
+  z-index: 2;
 }
 /* 日付：左端の縦書き。pageエリア基準で配置 */
 .page-meta {
@@ -327,7 +352,33 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .book-empty {
-  text-align: center; color: var(--ink-soft); line-height: 1.9;
+  text-align: center; color: #c8b27a; line-height: 1.9;
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+}
+.book-empty p { margin: 0; font-size: 14px; letter-spacing: 0.08em; }
+
+/* 御 ブランドマーク：朱の落款風 */
+.brand-mark {
+  width: 68px; height: 68px;
+  display: grid; place-items: center;
+  font-family: "Yuji Boku", "Yuji Syuku", "Shippori Mincho", serif;
+  font-size: 38px; line-height: 1;
+  color: #fff;
+  background: linear-gradient(135deg, #a52828 0%, #8b2f2f 60%, #6e1f1f 100%);
+  border-radius: 10px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 0 0 1.5px rgba(255,255,255,0.5),
+    0 4px 14px rgba(0,0,0,0.4);
+  transform: rotate(-2deg);
+}
+.brand-mark.sm {
+  width: 32px; height: 32px; font-size: 18px;
+  border-radius: 6px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 0 0 1px rgba(255,255,255,0.5),
+    0 2px 6px rgba(0,0,0,0.3);
 }
 .muted { color: var(--ink-soft); font-size: 13px; }
 
@@ -431,6 +482,30 @@ button { font-family: inherit; cursor: pointer; }
 .settings-row:active { background: rgba(212,175,94,0.08); }
 .settings-row .chev { color: #d4af5e; font-size: 16px; }
 .settings-row.danger { color: #d96a6a; }
+/* === 検索画面 === */
+#view-search {
+  background: radial-gradient(120% 60% at 50% 0%, rgba(74,56,38,0.35) 0%, transparent 60%), #0a0807;
+  overflow: hidden;
+}
+.search-wrap { padding: 0 20px calc(env(safe-area-inset-bottom, 0px) + 24px); max-width: 560px; margin: 0 auto; width: 100%; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+#search-input {
+  width: 100%; padding: 14px 16px; border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,175,94,0.25);
+  color: #ece5d2; font-family: var(--serif); font-size: 16px;
+  outline: none; margin-bottom: 16px;
+}
+#search-input::placeholder { color: #7a6f5a; }
+#search-input:focus { border-color: rgba(212,175,94,0.6); }
+.search-results { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0; }
+.search-results li {
+  padding: 14px 16px; border-bottom: 1px solid rgba(212,175,94,0.12);
+  color: #ece5d2; cursor: pointer; font-size: 14px; line-height: 1.6;
+}
+.search-results li:active { background: rgba(212,175,94,0.08); }
+.search-results .src { color: #d4af5e; font-size: 12px; margin-top: 4px; letter-spacing: 0.05em; }
+.account-note { padding: 0 4px 8px; font-size: 12.5px; line-height: 1.7; text-align: center; }
+
 .settings-version {
   text-align: center; color: #6b6259; font-size: 11px;
   letter-spacing: 0.2em; margin-top: 32px;
@@ -564,6 +639,19 @@ button { font-family: inherit; cursor: pointer; }
   transform: rotate(45deg);
 }
 .checkbox a { color: #d4af5e; text-decoration: underline; text-decoration-thickness: 0.5px; }
+.account-legal {
+  margin: -4px 2px 0;
+  color: #a89c84;
+  font-size: 12px;
+  line-height: 1.8;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+.account-legal a {
+  color: #d4af5e;
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+}
 
 .btn-gold {
   margin-top: 4px;
